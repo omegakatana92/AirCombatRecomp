@@ -1,0 +1,31 @@
+[game]
+name = "AirCombat"
+id = "SLUS-00001"
+exe = "input/SLUS_000.01"
+disc = "disc/Air Combat (USA).cue"
+load_address = "0x80012000"
+entry_pc = "0x800139B0"
+text_size = "0x0000A000"
+stack_base = "0x801FFFF0"
+
+[recompiler]
+seeds = "seeds/functions.txt"
+strict = true
+out_dir = "generated"
+
+[runtime]
+window_title = "Air Combat Recompiled"
+bios_hle = false
+openbios = true
+overlay_cache = true
+
+[video]
+renderer = "software"
+
+[prepare_disc]
+track_01_sha1 = "fba261a0ca69bed3018d00e89a74aa2921cffd51"
+track_01_md5 = "5a6e6a68e85925596983799278a5fec6"
+track_01_size = 106249248
+
+[netplay]
+require_cue = true
