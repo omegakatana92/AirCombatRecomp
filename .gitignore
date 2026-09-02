@@ -20,3 +20,6 @@ input/
 build-recompiler/
 generated/
 psx-runtime_generated_sources.txt
+
+# Launcher user settings (per-user, written to %APPDATA%\AirCombatRecomp\)
+launcher/launcher-config.json

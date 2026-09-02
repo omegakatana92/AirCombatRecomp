@@ -35,6 +35,32 @@ Controls depend on the current runtime configuration.
 
 Keyboard and controller bindings may be configurable through the project's input configuration.
 
+## Launcher (Windows)
+
+A small Windows GUI launcher is included under `launcher\`:
+
+* `launcher\AirCombatLauncher.bat` — double-click to start.
+* `launcher\AirCombatLauncher.ps1` — the actual PowerShell + WinForms GUI.
+
+The launcher lets you:
+
+1. Pick your legally obtained Air Combat `.cue` file (Browse...).
+2. Choose **OpenBIOS (Included)** (the default) or **Custom BIOS** and point at your own legally obtained PS1 BIOS file.
+3. Click **Launch Game**.
+
+Your last selections (CUE path, BIOS mode, custom BIOS path) are remembered in
+`%APPDATA%\AirCombatRecomp\launcher-config.json` and re-loaded the next time
+the launcher starts.
+
+The launcher resolves the recompiled executable and the bundled OpenBIOS
+relative to its own location, so the release folder can be moved anywhere on
+the PC without breaking the launch.
+
+> **Why the launcher's working directory is the CUE's folder, not the build folder:** Air Combat's disc image uses a multi-track CUE whose `FILE` entries reference the track `.bin` files with relative paths. The launched process therefore uses the directory containing the selected CUE as its working directory, so those relative `FILE` entries resolve.
+
+The launcher is a thin convenience wrapper; it does **not** bundle, copy, or
+distribute any game disc image, track, or retail BIOS.
+
 ## Building From Source
 
 This repository contains the source code, build files, game configuration, and recompilation data required to build the project.
