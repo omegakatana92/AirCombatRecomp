@@ -1,4 +1,4 @@
-# Air Combat Launcher
+﻿# Air Combat Launcher
 # A lightweight Windows GUI that locates the recompiled executable next to
 # itself, asks the user to pick a legally obtained .cue file and (optionally)
 # a custom legally obtained PS1 BIOS, and launches the game with the runtime
@@ -36,10 +36,11 @@ Add-Type -AssemblyName System.Drawing
 
 # --- Locate the recompiled EXE and the bundled OpenBIOS relative to this script
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-# launcher/ is a sibling of build/. The EXE and bios/ both live under build/.
-$projectRoot = Split-Path -Parent $scriptDir
-$recompExePath = Join-Path (Join-Path $projectRoot 'build') $RecompExeName
-$bundledBiosPath = Join-Path (Join-Path (Join-Path $projectRoot 'build') 'bios') 'openbios.bin'
+# launcher/ is a sibling of the release game dir. The EXE and bios/ both live
+# directly inside the release game dir, NOT under build/.
+$gameDir = Split-Path -Parent $scriptDir
+$recompExePath = Join-Path $gameDir $RecompExeName
+$bundledBiosPath = Join-Path (Join-Path $gameDir 'bios') 'openbios.bin'
 
 # --- Config persistence -------------------------------------------------------
 function Get-ConfigDir {
@@ -253,7 +254,7 @@ $btnLaunch.Add_Click({
     $lblStatus.Text = ''
 
     if (-not (Test-Path $recompExePath)) {
-        Show-Error "Recompiled executable not found:`n$recompExePath`nMake sure the build folder is intact."
+        Show-Error "Recompiled executable not found:`n$recompExePath`nMake sure the release folder is intact."
         return
     }
 
@@ -282,7 +283,7 @@ $btnLaunch.Add_Click({
             return
         }
     } elseif (-not (Test-Path $bundledBiosPath)) {
-        Show-Error "OpenBIOS is selected, but the bundled BIOS was not found at:`n$bundledBiosPath`nThe build folder may be incomplete."
+        Show-Error "OpenBIOS is selected, but the bundled BIOS was not found at:`n$bundledBiosPath`nThe release folder may be incomplete."
         return
     }
 
